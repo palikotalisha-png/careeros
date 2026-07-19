@@ -1,5 +1,6 @@
 "use client";
 import { useEffect, useState } from "react";
+import { MapPin, DollarSign, ExternalLink, ShieldCheck, Building2 } from "lucide-react";
 import { api } from "@/lib/api";
 import { Badge, Spinner } from "@/components/ui";
 
@@ -98,24 +99,29 @@ export default function Jobs() {
             <div className="flex flex-wrap items-start justify-between gap-3">
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
-                  <h3 className="font-semibold">{job.title}</h3>
+                  <h3 className="font-display font-semibold">{job.title}</h3>
                   <span className="chip bg-slate-100 text-slate-500 dark:bg-slate-800">{job.source}</span>
                 </div>
-                <div className="text-sm text-slate-500">
-                  {job.company_name} · {job.location || "Location not listed"}
-                  {job.salary && ` · ${job.salary}`}
+                <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
+                  <span className="flex items-center gap-1"><Building2 size={13} /> {job.company_name}</span>
+                  <span className="flex items-center gap-1"><MapPin size={13} /> {job.location || "Location not listed"}</span>
+                  {job.salary && <span className="flex items-center gap-1"><DollarSign size={13} /> {job.salary}</span>}
                 </div>
                 {job.date_posted && (
-                  <div className="text-xs text-slate-400">Posted {job.date_posted}</div>
+                  <div className="mt-0.5 text-xs text-slate-400">Posted {job.date_posted}</div>
                 )}
               </div>
               <div className="flex items-center gap-4">
                 <div className="text-center">
-                  <div className="text-lg font-bold">{match?.match_score ?? "—"}</div>
-                  <div className="text-[10px] uppercase text-slate-400">Match</div>
+                  <div className="font-display text-2xl font-bold text-brand-600 dark:text-brand-400">{match?.match_score ?? "—"}</div>
+                  <div className="text-[10px] uppercase tracking-wide text-slate-400">Match</div>
                 </div>
                 {match && <Badge level={match.sponsorship_probability}>{match.sponsorship_probability} sponsorship</Badge>}
-                {job.e_verify && <span className="chip bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">E-Verify</span>}
+                {job.e_verify && (
+                  <span className="chip flex items-center gap-1 bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">
+                    <ShieldCheck size={12} /> E-Verify
+                  </span>
+                )}
               </div>
             </div>
 
@@ -128,8 +134,9 @@ export default function Jobs() {
                 onClick={() => setExpanded(expanded === job.id ? null : job.id)}>
                 {expanded === job.id ? "Hide details" : "Why this score?"}
               </button>
-              <a href={job.apply_url} target="_blank" rel="noreferrer" className="text-brand-600 hover:underline">
-                View posting ↗
+              <a href={job.apply_url} target="_blank" rel="noreferrer"
+                className="flex items-center gap-1 text-brand-600 hover:underline dark:text-brand-400">
+                View posting <ExternalLink size={13} />
               </a>
               <button className="btn-primary ml-auto px-3 py-1.5 text-xs"
                 disabled={!!saved[job.id]} onClick={() => save(job.id)}>

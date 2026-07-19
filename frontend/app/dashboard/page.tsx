@@ -1,15 +1,29 @@
 "use client";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import { Radar, Send, CalendarClock, Trophy, Sparkles } from "lucide-react";
 import { api } from "@/lib/api";
 import { Section, Spinner } from "@/components/ui";
 
+const STAT_ICONS: Record<string, any> = {
+  "New jobs today": Radar, "Active applications": Send,
+  "Applied this month": CalendarClock, Interviews: CalendarClock, Offers: Trophy,
+};
+
 function Stat({ label, value, sub }: { label: string; value: any; sub?: string }) {
+  const Icon = STAT_ICONS[label];
   return (
     <div className="card">
-      <div className="text-3xl font-bold">{value}</div>
+      <div className="mb-2 flex items-center justify-between">
+        {Icon && (
+          <span className="grid h-9 w-9 place-items-center rounded-xl bg-brand-gradient text-white">
+            <Icon size={16} />
+          </span>
+        )}
+      </div>
+      <div className="font-display text-3xl font-bold">{value}</div>
       <div className="mt-1 text-sm font-medium text-slate-500">{label}</div>
-      {sub && <div className="text-xs text-slate-400">{sub}</div>}
+      {sub && <div className="text-xs font-medium text-brand-600 dark:text-brand-400">{sub}</div>}
     </div>
   );
 }
