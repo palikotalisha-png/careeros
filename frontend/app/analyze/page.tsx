@@ -68,7 +68,7 @@ export default function Analyze() {
         <p className="text-sm text-slate-500">Paste a description or URL, then get your full application kit.</p>
       </div>
 
-      <div className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-800">
+      <div className="flex flex-wrap gap-1 border-b border-slate-200 dark:border-slate-700">
         {tabs.map(([t, lab]) => (
           <button key={t} onClick={() => setTab(t)} disabled={t !== "input" && !res}
             className={`rounded-t-lg px-3 py-2 text-sm font-medium disabled:opacity-40 ${
@@ -167,7 +167,7 @@ function ResumeTab({ res, jd, company, onVersionSaved }: any) {
             <span className="text-4xl font-bold text-green-600">+{atsScore - a.ats_score_before}</span>
             <span className="pb-1 text-sm text-slate-500">{a.ats_score_before} → {atsScore}</span>
           </div>
-          <div className="mt-2 flex h-3 overflow-hidden rounded bg-slate-100 dark:bg-slate-800">
+          <div className="mt-2 flex h-3 overflow-hidden rounded bg-slate-100 dark:bg-slate-700">
             <div className="bg-slate-400" style={{ width: `${a.ats_score_before}%` }} />
             <div className="bg-green-500" style={{ width: `${atsScore - a.ats_score_before}%` }} />
           </div>
@@ -195,10 +195,10 @@ function ResumeTab({ res, jd, company, onVersionSaved }: any) {
               {fixes.map((f) => {
                 const done = applied.includes(f.id);
                 return (
-                  <div key={f.id} className={`rounded-xl border p-3 text-sm ${done ? "border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-900/20" : "border-slate-200 dark:border-slate-800"}`}>
+                  <div key={f.id} className={`rounded-xl border p-3 text-sm ${done ? "border-green-300 bg-green-50 dark:border-green-800 dark:bg-green-900/20" : "border-slate-200 dark:border-slate-700"}`}>
                     <div className="flex items-start justify-between gap-3">
                       <div>
-                        <span className="chip mr-2 bg-slate-100 text-slate-500 dark:bg-slate-800">{f.category}</span>
+                        <span className="chip mr-2 bg-slate-100 text-slate-500 dark:bg-slate-700">{f.category}</span>
                         <span className="text-slate-600 dark:text-slate-300">{f.issue}</span>
                       </div>
                       <button className="btn-ghost shrink-0 py-1 text-xs" disabled={done || fixBusy === f.id}
@@ -222,7 +222,7 @@ function ResumeTab({ res, jd, company, onVersionSaved }: any) {
             <a className="btn-ghost py-1.5 text-xs" href={api.exportUrl("resume", vid, "pdf")} target="_blank">PDF</a>
             <a className="btn-ghost py-1.5 text-xs" href={api.exportUrl("resume", vid, "docx")} target="_blank">DOCX</a>
           </span>)}>
-        <pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-lg bg-slate-50 p-3 text-xs dark:bg-slate-800/50">{content}</pre>
+        <pre className="max-h-72 overflow-auto whitespace-pre-wrap rounded-lg bg-slate-50 p-3 text-xs dark:bg-slate-700/50">{content}</pre>
         {!vid && <button className="btn-primary mt-3" onClick={makeVersion}>Save version & enable export</button>}
       </Section>
     </div>
@@ -259,7 +259,7 @@ function SponsorshipTab({ s }: any) {
 
 function CompanyTab({ c }: any) {
   const ov = c.overview || {}, bi = c.business_intelligence || {}, ci = c.career_intelligence || {};
-  const Row = ({ k, v }: any) => <div className="flex justify-between gap-4 border-b border-slate-100 py-1.5 text-sm last:border-0 dark:border-slate-800"><span className="text-slate-500">{k}</span><span className="text-right font-medium">{Array.isArray(v) ? v.join(", ") : v}</span></div>;
+  const Row = ({ k, v }: any) => <div className="flex justify-between gap-4 border-b border-slate-100 py-1.5 text-sm last:border-0 dark:border-slate-700"><span className="text-slate-500">{k}</span><span className="text-right font-medium">{Array.isArray(v) ? v.join(", ") : v}</span></div>;
   return (
     <div className="space-y-6">
       <Section title="Overview">
@@ -301,18 +301,18 @@ function InterviewTab({ questions }: any) {
       <Section title="Questions with STAR frameworks">
         <div className="space-y-2">
           {questions.map((q: any, i: number) => (
-            <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-800">
+            <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-700">
               <button className="flex w-full items-center justify-between px-4 py-3 text-left"
                 onClick={() => setOpen(open === i ? null : i)}>
                 <span className="text-sm font-medium">{q.question}</span>
-                <span className="chip bg-slate-100 text-slate-500 dark:bg-slate-800">{q.category}</span>
+                <span className="chip bg-slate-100 text-slate-500 dark:bg-slate-700">{q.category}</span>
               </button>
               {open === i && (
-                <div className="space-y-2 border-t border-slate-100 px-4 py-3 text-sm dark:border-slate-800">
+                <div className="space-y-2 border-t border-slate-100 px-4 py-3 text-sm dark:border-slate-700">
                   <p><b>Why they ask:</b> {q.why_they_ask}</p>
                   <p><b>Strong answer includes:</b> {(q.strong_answer_includes || []).join("; ")}</p>
                   <p><b>Framework:</b> {q.framework}</p>
-                  <p className="rounded-lg bg-slate-50 p-2 dark:bg-slate-800/50"><b>Sample (STAR):</b> {q.personalized_star}</p>
+                  <p className="rounded-lg bg-slate-50 p-2 dark:bg-slate-700/50"><b>Sample (STAR):</b> {q.personalized_star}</p>
                   <button className="btn-ghost py-1.5 text-xs" onClick={() => { setMock({ q: q.question, a: "" }); setFb(null); }}>Practice this →</button>
                 </div>
               )}
@@ -331,7 +331,7 @@ function InterviewTab({ questions }: any) {
               <div className="flex items-center gap-3"><ScoreRing value={fb.score} size={64} /><span className="font-medium">Answer score</span></div>
               <p><b>Strengths:</b> {(fb.strengths || []).join("; ")}</p>
               <p><b>Improve:</b> {(fb.improvements || []).join("; ")}</p>
-              <p className="rounded-lg bg-slate-50 p-2 dark:bg-slate-800/50"><b>Improved answer:</b> {fb.improved_answer}</p>
+              <p className="rounded-lg bg-slate-50 p-2 dark:bg-slate-700/50"><b>Improved answer:</b> {fb.improved_answer}</p>
             </div>
           )}
         </Section>
@@ -380,18 +380,18 @@ function HireVueTab({ job, jd }: any) {
       right={<span className="chip bg-green-100 text-green-700 dark:bg-green-900/40 dark:text-green-300">Sourced from the web</span>}>
       <div className="space-y-2">
         {data.questions.map((q: any, i: number) => (
-          <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-800">
+          <div key={i} className="rounded-xl border border-slate-200 dark:border-slate-700">
             <button className="flex w-full items-center justify-between px-4 py-3 text-left"
               onClick={() => setOpen(open === i ? null : i)}>
               <span className="text-sm font-medium">{q.question}</span>
-              <span className="chip bg-slate-100 text-slate-500 dark:bg-slate-800">{q.source_domain}</span>
+              <span className="chip bg-slate-100 text-slate-500 dark:bg-slate-700">{q.source_domain}</span>
             </button>
             {open === i && (
-              <div className="space-y-2 border-t border-slate-100 px-4 py-3 text-sm dark:border-slate-800">
+              <div className="space-y-2 border-t border-slate-100 px-4 py-3 text-sm dark:border-slate-700">
                 <p><b>Why they ask:</b> {q.why_they_ask}</p>
                 <p><b>Strong answer includes:</b> {(q.strong_answer_includes || []).join("; ")}</p>
                 {q.personalized_star && (
-                  <p className="rounded-lg bg-slate-50 p-2 dark:bg-slate-800/50"><b>Sample (STAR):</b> {q.personalized_star}</p>
+                  <p className="rounded-lg bg-slate-50 p-2 dark:bg-slate-700/50"><b>Sample (STAR):</b> {q.personalized_star}</p>
                 )}
                 <a href={q.source_url} target="_blank" rel="noreferrer" className="block text-xs text-brand-600 hover:underline">
                   Source: {q.source_title} →

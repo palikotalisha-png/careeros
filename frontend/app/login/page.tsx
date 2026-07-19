@@ -31,7 +31,7 @@ export default function Login() {
   }
 
   return (
-    <div className="mx-auto -mt-6 grid min-h-[calc(100vh-8rem)] max-w-5xl overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-soft md:grid-cols-2 dark:border-slate-800 dark:bg-slate-900">
+    <div className="mx-auto -mt-6 grid min-h-[calc(100vh-8rem)] max-w-5xl overflow-hidden rounded-3xl border border-slate-200/80 bg-white shadow-soft md:grid-cols-2 dark:border-slate-700 dark:bg-slate-800">
       {/* Left: brand panel */}
       <div className="relative hidden flex-col justify-between overflow-hidden bg-brand-gradient p-10 text-white md:flex">
         <div className="pointer-events-none absolute -right-24 -top-24 h-72 w-72 rounded-full bg-white/10 blur-3xl" />

@@ -30,7 +30,7 @@ export function Badge({ level, children }:
     Medium: "bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300",
     Low: "bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300",
   };
-  return <span className={`chip ${map[level] || "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300"}`}>{children}</span>;
+  return <span className={`chip ${map[level] || "bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300"}`}>{children}</span>;
 }
 
 export function Section({ title, children, right }:

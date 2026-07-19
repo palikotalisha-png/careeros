@@ -41,13 +41,13 @@ function CareerCoach() {
   return (
     <Section title="AI Career Coach">
       <div className="grid gap-4 sm:grid-cols-2">
-        <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-800/50">
+        <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-700/50">
           <div className="text-xs text-slate-500">Estimated salary range</div>
           <div className="text-xl font-bold">
             {range.low ? `$${Math.round(range.low / 1000)}k – $${Math.round(range.high / 1000)}k` : "—"}
           </div>
         </div>
-        <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-800/50">
+        <div className="rounded-xl bg-slate-50 p-3 dark:bg-slate-700/50">
           <div className="text-xs text-slate-500">Estimated interview chance</div>
           <div className="text-xl font-bold">{s.interview_chance_pct != null ? `${s.interview_chance_pct}%` : "—"}</div>
         </div>
@@ -100,7 +100,7 @@ export default function Dashboard() {
             {funnelOrder.map((s) => (
               <div key={s} className="flex items-center gap-3">
                 <div className="w-20 text-xs text-slate-500">{s}</div>
-                <div className="h-5 flex-1 overflow-hidden rounded bg-slate-100 dark:bg-slate-800">
+                <div className="h-5 flex-1 overflow-hidden rounded bg-slate-100 dark:bg-slate-700">
                   <div className="h-full rounded bg-brand-500"
                     style={{ width: `${(d.funnel[s] / maxF) * 100}%` }} />
                 </div>
@@ -122,7 +122,7 @@ export default function Dashboard() {
                     <span className="text-slate-500">{t.label}</span>
                     <span className="font-semibold text-green-600">+{t.after - t.before}</span>
                   </div>
-                  <div className="flex h-3 overflow-hidden rounded bg-slate-100 dark:bg-slate-800">
+                  <div className="flex h-3 overflow-hidden rounded bg-slate-100 dark:bg-slate-700">
                     <div className="bg-slate-400" style={{ width: `${t.before}%` }} />
                     <div className="bg-green-500" style={{ width: `${t.after - t.before}%` }} />
                   </div>

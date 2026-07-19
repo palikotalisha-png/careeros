@@ -68,11 +68,11 @@ export default function Jobs() {
           </label>
         </div>
 
-        <div className="border-t border-slate-100 pt-3 dark:border-slate-800">
+        <div className="border-t border-slate-100 pt-3 dark:border-slate-700">
           <label className="label">Favorite companies (monitored for new openings)</label>
           <div className="flex flex-wrap items-center gap-2">
             {favorites.map((f) => (
-              <span key={f} className="chip bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+              <span key={f} className="chip bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300">
                 {f}
                 <button className="ml-1.5 text-slate-400 hover:text-red-500" onClick={() => removeFavorite(f)}>×</button>
               </span>
@@ -100,7 +100,7 @@ export default function Jobs() {
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <h3 className="font-display font-semibold">{job.title}</h3>
-                  <span className="chip bg-slate-100 text-slate-500 dark:bg-slate-800">{job.source}</span>
+                  <span className="chip bg-slate-100 text-slate-500 dark:bg-slate-700">{job.source}</span>
                 </div>
                 <div className="mt-1 flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-slate-500">
                   <span className="flex items-center gap-1"><Building2 size={13} /> {job.company_name}</span>
@@ -145,7 +145,7 @@ export default function Jobs() {
             </div>
 
             {expanded === job.id && match && (
-              <div className="mt-3 grid gap-3 border-t border-slate-100 pt-3 text-sm dark:border-slate-800 md:grid-cols-2">
+              <div className="mt-3 grid gap-3 border-t border-slate-100 pt-3 text-sm dark:border-slate-700 md:grid-cols-2">
                 <div>
                   <div className="mb-1 text-xs font-semibold uppercase text-slate-500">Strengths</div>
                   <ul className="list-inside list-disc text-slate-600 dark:text-slate-300">

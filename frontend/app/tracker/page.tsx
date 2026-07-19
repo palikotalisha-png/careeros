@@ -6,7 +6,7 @@ import { Badge, Spinner } from "@/components/ui";
 const STATUSES = ["Saved", "Applying", "Applied", "Assessment", "Recruiter Screen",
   "Interview", "Final Round", "Follow-up", "Rejected", "Offer", "Accepted"];
 const COLOR: Record<string, string> = {
-  Saved: "bg-slate-100 text-slate-600 dark:bg-slate-800 dark:text-slate-300",
+  Saved: "bg-slate-100 text-slate-600 dark:bg-slate-700 dark:text-slate-300",
   Applying: "bg-blue-100 text-blue-700 dark:bg-blue-900/40 dark:text-blue-300",
   Applied: "bg-indigo-100 text-indigo-700 dark:bg-indigo-900/40 dark:text-indigo-300",
   Assessment: "bg-cyan-100 text-cyan-700 dark:bg-cyan-900/40 dark:text-cyan-300",
@@ -45,14 +45,14 @@ export default function Tracker() {
 
       <div className="card overflow-x-auto p-0">
         <table className="w-full text-sm">
-          <thead className="border-b border-slate-200 text-left text-xs uppercase text-slate-500 dark:border-slate-800">
+          <thead className="border-b border-slate-200 text-left text-xs uppercase text-slate-500 dark:border-slate-700">
             <tr>{["Company", "Role", "Status", "Deadline", "Salary", "Sponsorship", "Referral", "Documents", ""].map((h) =>
               <th key={h} className="px-4 py-3">{h}</th>)}</tr>
           </thead>
           <tbody>
             {apps.length === 0 && <tr><td colSpan={9} className="px-4 py-8 text-center text-slate-400">No applications yet. Analyze a job to add one.</td></tr>}
             {apps.map((a) => (
-              <tr key={a.id} className="border-b border-slate-100 dark:border-slate-800/60">
+              <tr key={a.id} className="border-b border-slate-100 dark:border-slate-700/60">
                 <td className="px-4 py-3 font-medium">{a.company}</td>
                 <td className="px-4 py-3">{a.job_title}</td>
                 <td className="px-4 py-3">
