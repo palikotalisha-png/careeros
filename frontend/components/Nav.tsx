@@ -20,7 +20,8 @@ export default function Nav() {
   const [open, setOpen] = useState(false);
 
   useEffect(() => {
-    const d = window.localStorage.getItem("careeros_dark") === "1";
+    const stored = window.localStorage.getItem("careeros_dark");
+    const d = stored === null ? true : stored === "1";   // dark by default
     setDark(d); document.documentElement.classList.toggle("dark", d);
     if (!getToken() && path !== "/login") router.push("/login");
   }, [path, router]);
