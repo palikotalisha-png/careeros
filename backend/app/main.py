@@ -5,6 +5,7 @@ from app.database import init_db
 from app.routers import (
     auth, profile, analyze, resume, cover_letter, company, interview,
     sponsorship, networking, tracker, dashboard, events, strategy,
+    jobs, discovery,
 )
 
 app = FastAPI(title="CareerOS API", version="1.0.0",
@@ -28,5 +29,6 @@ def health():
 
 
 for r in (auth, profile, analyze, resume, cover_letter, company, interview,
-          sponsorship, networking, tracker, dashboard, events, strategy):
+          sponsorship, networking, tracker, dashboard, events, strategy,
+          jobs, discovery):
     app.include_router(r.router)

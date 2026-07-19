@@ -21,6 +21,7 @@ class Settings(BaseSettings):
 
     enabled_adapters: str = "sample"
     serpapi_key: str = ""
+    cron_secret: str = ""   # if set, POST /api/discovery/run requires Authorization: Bearer <this>
 
     smtp_host: str = ""
     smtp_port: int = 587

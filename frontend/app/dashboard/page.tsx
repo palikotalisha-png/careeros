@@ -72,7 +72,8 @@ export default function Dashboard() {
         <Link href="/analyze" className="btn-primary">+ Analyze a Job</Link>
       </div>
 
-      <div className="grid grid-cols-2 gap-4 md:grid-cols-4">
+      <div className="grid grid-cols-2 gap-4 md:grid-cols-5">
+        <Link href="/jobs"><Stat label="New jobs today" value={d.new_jobs_today} sub="View feed →" /></Link>
         <Stat label="Active applications" value={d.active_applications} />
         <Stat label="Applied this month" value={d.applications_this_month} />
         <Stat label="Interviews" value={d.interview_count} />

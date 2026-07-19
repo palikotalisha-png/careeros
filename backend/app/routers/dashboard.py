@@ -17,6 +17,8 @@ def dashboard(db: Session = Depends(get_db), user=Depends(get_current_user)):
         "Interview", "Final Round", "Follow-up")]
     resumes = (db.query(models.ResumeVersion).filter_by(user_id=user.id)
                .order_by(models.ResumeVersion.created_at).all())
+    new_jobs_today = (db.query(models.Job)
+                      .filter(models.Job.created_at >= today).count())
 
     upcoming_interviews = sorted(
         [{"company": a.company, "job_title": a.job_title,
@@ -36,6 +38,7 @@ def dashboard(db: Session = Depends(get_db), user=Depends(get_current_user)):
         funnel[a.status] = funnel.get(a.status, 0) + 1
 
     return {
+        "new_jobs_today": new_jobs_today,
         "active_applications": len(active),
         "applications_this_month": len([a for a in apps
                                         if a.date_applied and a.date_applied >= month_start]),

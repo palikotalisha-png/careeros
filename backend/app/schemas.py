@@ -56,6 +56,7 @@ class JobOut(ORM):
     title: str
     company_name: str
     location: str
+    description: str = ""
     salary: str
     source: str
     apply_url: str

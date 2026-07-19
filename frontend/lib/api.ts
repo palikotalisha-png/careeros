@@ -45,6 +45,20 @@ export const api = {
   networking: (b: any) => req("/api/networking", { method: "POST", body: JSON.stringify(b) }),
   strategy: () => req("/api/strategy"),
 
+  jobs: (params: Record<string, string | number | boolean> = {}) => {
+    const qs = new URLSearchParams(
+      Object.entries(params).filter(([, v]) => v !== "" && v !== undefined)
+        .map(([k, v]) => [k, String(v)])
+    ).toString();
+    return req(`/api/jobs${qs ? `?${qs}` : ""}`);
+  },
+  job: (id: string) => req(`/api/jobs/${id}`),
+  saveJob: (id: string) => req(`/api/jobs/${id}/save`, { method: "POST" }),
+  favorites: () => req("/api/jobs/favorites/list"),
+  addFavorite: (company: string) => req(`/api/jobs/favorites/${encodeURIComponent(company)}`, { method: "POST" }),
+  removeFavorite: (company: string) => req(`/api/jobs/favorites/${encodeURIComponent(company)}`, { method: "DELETE" }),
+  logEvent: (b: any) => req("/api/events", { method: "POST", body: JSON.stringify(b) }),
+
   apps: () => req("/api/applications"),
   createApp: (b: any) => req("/api/applications", { method: "POST", body: JSON.stringify(b) }),
   updateApp: (id: string, b: any) => req(`/api/applications/${id}`, { method: "PUT", body: JSON.stringify(b) }),
