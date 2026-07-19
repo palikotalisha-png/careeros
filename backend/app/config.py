@@ -22,6 +22,9 @@ class Settings(BaseSettings):
     enabled_adapters: str = "sample"
     serpapi_key: str = ""
     cron_secret: str = ""   # if set, POST /api/discovery/run requires Authorization: Bearer <this>
+    # Comma-separated Workday career-site URLs, e.g.
+    # https://acme.wd5.myworkdayjobs.com/en-US/Acme_Careers,https://foo.wd1.myworkdayjobs.com/en-US/Foo
+    workday_targets: str = ""
 
     smtp_host: str = ""
     smtp_port: int = 587
@@ -32,6 +35,10 @@ class Settings(BaseSettings):
     @property
     def adapters(self) -> list[str]:
         return [a.strip() for a in self.enabled_adapters.split(",") if a.strip()]
+
+    @property
+    def workday_target_urls(self) -> list[str]:
+        return [u.strip() for u in self.workday_targets.split(",") if u.strip()]
 
 
 @lru_cache

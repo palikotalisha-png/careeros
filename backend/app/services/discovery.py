@@ -10,7 +10,9 @@ from datetime import datetime
 from sqlalchemy.orm import Session
 from app import models
 from app.config import settings
-from app.jobs.adapters import SampleAdapter, GreenhouseAdapter, LeverAdapter, GoogleJobsAdapter
+from app.jobs.adapters import (
+    SampleAdapter, GreenhouseAdapter, LeverAdapter, GoogleJobsAdapter, WorkdayAdapter,
+)
 
 # Starter list of companies with long-standing public Greenhouse job boards, so the feed isn't
 # empty on day one. ATS providers change over time — if a token is stale the adapter just
@@ -67,6 +69,8 @@ def run(db: Session) -> dict:
         raw += LeverAdapter(_target_companies(db)).fetch()
     if "google_jobs" in enabled:
         raw += GoogleJobsAdapter(_google_queries(db)).fetch()
+    if "workday" in enabled:
+        raw += WorkdayAdapter(settings.workday_target_urls).fetch()
 
     created = 0
     seen_hashes: set[str] = set()

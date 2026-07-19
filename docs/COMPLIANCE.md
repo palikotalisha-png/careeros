@@ -14,6 +14,10 @@ runs whichever adapters are listed in `ENABLED_ADAPTERS`:
   companies that already publish a public Greenhouse board.
 - **lever** — the public [Lever Postings API](https://github.com/lever/postings-api)
   (`api.lever.co/v0/postings`). Same deal: public, documented, no auth.
+- **workday** — the public Workday CXS job-search API (`/wday/cxs/{tenant}/{site}/jobs`) that
+  a Workday-hosted career site's own page calls to render its listings. We call that same
+  endpoint directly rather than rendering/scraping the page. Requires `WORKDAY_TARGETS`
+  (career-site URLs) to be configured — see `.env.example`.
 - **google_jobs** — Google for Jobs results via [SerpApi](https://serpapi.com/google-jobs-api),
   a paid third-party API that returns Google's job-search results as structured JSON. This is
   not scraping Google directly; it's calling SerpApi's own API with your `SERPAPI_KEY`.

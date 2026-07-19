@@ -196,9 +196,70 @@ class GoogleJobsAdapter(Adapter):
         return out
 
 
+class WorkdayAdapter(Adapter):
+    """Public Workday CXS job-search API — the same JSON endpoint a Workday-hosted career
+    site's own page calls client-side to render its listings
+    (`POST https://{host}/wday/cxs/{tenant}/{site}/jobs`). No login, no scraping the rendered
+    page — just calling the site's own public search API directly, same tier as Greenhouse/Lever.
+
+    Targets are given as full career-site URLs (e.g.
+    "https://acme.wd5.myworkdayjobs.com/en-US/Acme_Careers"); host/tenant/site are derived
+    from the URL automatically.
+    """
+    id = "workday"
+
+    def __init__(self, site_urls: list[str]):
+        self.site_urls = site_urls
+
+    @staticmethod
+    def _parse(url: str) -> dict | None:
+        m = re.match(r"https?://([^/]+)/[^/]+/([^/?#]+)", url.strip())
+        if not m:
+            return None
+        host, site = m.group(1), m.group(2)
+        tenant = host.split(".")[0]
+        return {"host": host, "tenant": tenant, "site": site}
+
+    def fetch(self) -> list[dict]:
+        out = []
+        for url in self.site_urls:
+            target = self._parse(url)
+            if not target:
+                continue
+            host, tenant, site = target["host"], target["tenant"], target["site"]
+            try:
+                r = httpx.post(
+                    f"https://{host}/wday/cxs/{tenant}/{site}/jobs",
+                    json={"appliedFacets": {}, "limit": 20, "offset": 0, "searchText": ""},
+                    headers={"Content-Type": "application/json"},
+                    timeout=TIMEOUT,
+                )
+                if r.status_code != 200:
+                    continue
+                data = r.json()
+            except Exception:
+                continue
+
+            company_name = tenant.replace("-", " ").title()
+            for j in data.get("jobPostings", []):
+                path = j.get("externalPath", "")
+                out.append({
+                    "title": j.get("title", ""),
+                    "company_name": company_name,
+                    "location": j.get("locationsText", ""),
+                    "description": "",  # search results don't include full text; detail page would need a 2nd request
+                    "salary": "",
+                    "apply_url": f"https://{host}/en-US/{site}{path}" if path else url,
+                    "date_posted": "",
+                    "source": self.id,
+                })
+        return out
+
+
 ADAPTER_CLASSES = {
     "sample": SampleAdapter,
     "greenhouse": GreenhouseAdapter,
     "lever": LeverAdapter,
     "google_jobs": GoogleJobsAdapter,
+    "workday": WorkdayAdapter,
 }
