@@ -50,6 +50,11 @@ class ProfileOut(ProfileIn, ORM):
     resume_filename: str = ""
 
 
+class ResumeUploadOut(BaseModel):
+    profile: ProfileOut
+    warning: str | None = None
+
+
 # Jobs
 class JobOut(ORM):
     id: str

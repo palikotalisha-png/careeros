@@ -7,6 +7,8 @@ export default function Profile() {
   const [p, setP] = useState<any>(null);
   const [saved, setSaved] = useState(false);
   const [uploading, setUploading] = useState(false);
+  const [uploadWarning, setUploadWarning] = useState("");
+  const [uploadError, setUploadError] = useState("");
   const fileRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => { api.getProfile().then(setP); }, []);
@@ -21,8 +23,18 @@ export default function Profile() {
     await api.updateProfile(body); setSaved(true); setTimeout(() => setSaved(false), 1500);
   }
   async function upload(f?: File) {
-    if (!f) return; setUploading(true);
-    const r = await api.uploadResume(f); setP(r); setUploading(false);
+    if (!f) return;
+    setUploading(true); setUploadWarning(""); setUploadError("");
+    try {
+      const r = await api.uploadResume(f);
+      setP(r.profile);
+      if (r.warning) setUploadWarning(r.warning);
+    } catch (e: any) {
+      setUploadError(e.message || "Upload failed. Please try again.");
+    } finally {
+      setUploading(false);
+      if (fileRef.current) fileRef.current.value = "";
+    }
   }
 
   return (
@@ -41,6 +53,16 @@ export default function Profile() {
           <span className="text-sm text-slate-500">
             {p.resume_filename || "No resume uploaded"}</span>
         </div>
+        {uploadError && (
+          <div className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700 dark:bg-red-900/30 dark:text-red-300">
+            {uploadError}
+          </div>
+        )}
+        {uploadWarning && (
+          <div className="mt-3 rounded-lg bg-amber-50 p-3 text-sm text-amber-700 dark:bg-amber-900/30 dark:text-amber-300">
+            {uploadWarning}
+          </div>
+        )}
         <textarea className="input mt-3 h-40 font-mono text-xs" value={p.resume_text || ""}
           onChange={(e) => set("resume_text", e.target.value)}
           placeholder="Parsed resume text appears here and can be edited…" />
